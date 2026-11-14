@@ -1,13 +1,18 @@
+# Living Technical Portfolio
 
-LIVING TECHNICAL PORTFOLIO
-PROJECT SCOPE AND IMPLEMENTATION HANDOFF
-Version: 1.1
-Date: 2026-11-14
-Status: Repository initialization and technology selection
+Project scope and implementation handoff
 
-============================================================
-0. PURPOSE
-============================================================
+- **Version** 1.1
+- **Date** 2026-11-14
+- **Status** Repository initialization and technology selection
+
+## Release planning update
+
+See [the architecture plan](architecture.md) for the selected stack and current release plan.
+The first release includes the online CV. Build-generated PDF work and
+the stable PDF download URL are deferred to a later release using Typst.
+
+## 0. PURPOSE
 
 This document defines the scope, requirements, subsystems,
 technical challenges, and development process for the
@@ -26,9 +31,7 @@ Do not treat proposed technologies as selected technologies.
 The README.md file is the public project introduction.
 This document is the technical source of requirements.
 
-============================================================
-1. PROJECT VISION
-============================================================
+## 1. PROJECT VISION
 
 Build a living technical portfolio that grows as the owner
 learns new technical skills and completes practical work.
@@ -50,7 +53,7 @@ The primary learning interests include:
 
 The system must support two complementary experiences:
 
-A. INTERACTIVE EXPERIENCE
+### A. INTERACTIVE EXPERIENCE
 
 An animated, game-like skill explorer with floating or
 rotating skill objects.
@@ -58,16 +61,14 @@ rotating skill objects.
 Selecting a skill opens a large interactive panel that
 shows related labs, projects, and evidence.
 
-B. CONVENTIONAL EXPERIENCE
+### B. CONVENTIONAL EXPERIENCE
 
 Normal website pages with direct links to skills, labs,
 projects, and the CV.
 
 Both experiences use one shared content source.
 
-============================================================
-2. DEVELOPMENT PRINCIPLES
-============================================================
+## 2. DEVELOPMENT PRINCIPLES
 
 - Start with one GitHub repository.
 - Keep the technology stack open until evaluation.
@@ -92,7 +93,7 @@ User acceptance tests
 
 Use requirement IDs and acceptance criteria where useful.
 
-AI ASSISTANCE
+### AI ASSISTANCE
 
 The owner wants to learn and develop real technical skills.
 
@@ -112,11 +113,9 @@ The exact division of work is not yet fixed.
 AI-generated code must be reviewed, tested, and understood
 before adoption.
 
-============================================================
-3. SUBSYSTEM: CONTENT MANAGEMENT
-============================================================
+## 3. SUBSYSTEM: CONTENT MANAGEMENT
 
-IN SCOPE
+### IN SCOPE
 
 - Markdown-based content authoring.
 - Structured metadata for content records.
@@ -127,59 +126,34 @@ IN SCOPE
 - Stable IDs and URLs.
 - Automatic generation of pages from records.
 
-REQUIRED CONTENT TYPES
+### REQUIRED CONTENT TYPES
 
-SKILL
+### SKILL
 - ID
 - Name
 - Category
 - Status
 - Summary
 - Description
-- Related labs
-- Related projects
+- Optional tool IDs for skill previews
+- Related work derived from work-to-skill links
 - Last update
 
-LAB
-- ID
-- Title
-- Objective
-- Related skills
-- Related projects
-- Work steps
-- Tests
-- Results
-- Evidence
-- Lessons learned
-- Completion and publication status
+### WORK ENTRY
+- ID, slug, title, and kind such as Lab, Study, Project, or Artwork
+- Completion and publication status, with dates for sorting
+- Optional parent, cover image, course reference, and skill links
+- Flexible Markdown write-up with supporting material
+- Optional owner-approved proof explanation on each skill link
 
-PROJECT
-- ID
-- Title
-- Overview
-- Related skills
-- Related labs
-- Development stages
-- Evidence
-- Results
-- Publication status
-
-EVIDENCE
-- ID
-- Type
-- Title
-- Description
-- File path or URL
-- Related record
-
-PROFILE
+### PROFILE
 - Contact information
 - Professional summary
 - Education
 - Experience
 - CV configuration
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Select metadata format.
 - Define schemas and validation rules.
@@ -188,80 +162,67 @@ TECHNICAL CHALLENGES
 - Manage media files and paths.
 - Prevent draft content from being published.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Database-backed content management.
 - Custom browser-based content editor.
 - Multi-user authoring.
 - Real-time content synchronization.
 
-============================================================
-4. SUBSYSTEM: SKILLS AND LEARNING PROGRESS
-============================================================
+## 4. SUBSYSTEM: SKILLS AND LEARNING PROGRESS
 
-IN SCOPE
+### IN SCOPE
 
 Each skill has one of three states:
 
-INTERESTED
+### INTERESTED
 A subject the owner may learn in the future.
 
-LEARNING
+### LEARNING
 A subject the owner is actively studying.
 
-DEMONSTRATED
-A skill approved by the owner and supported by
-completed, published lab evidence.
+### DEMONSTRATED
+A skill explicitly marked Demonstrated by the owner and supported
+by an approved link from a completed, published work entry.
 
-REQUIREMENTS
+### REQUIREMENTS
 
 - Show skill states on the website.
-- Link skills to labs and projects.
-- Support multiple labs per skill.
-- Support one lab linked to multiple skills.
+- Link skills to any kind of work entry.
+- Support multiple work entries per skill and multiple skills per entry.
 - Include every valid demonstrated skill in the CV.
 - Exclude interested and learning skills from the
   demonstrated CV skills section.
-- Require owner approval for demonstrated status.
-- Require completed, published evidence.
+- Require owner approval and a proof explanation per qualifying skill link.
+- Accept the write-up itself as proof. Files and links are optional.
 - Validate these conditions before publication.
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Validate skill status.
 - Validate linked evidence.
 - Keep CV summaries readable.
 - Prevent unsupported skill claims.
 
-OUT OF SCOPE
+### OUT OF SCOPE
 
 - Automatic proficiency scores.
 - AI-generated skill ratings.
 - Automatic expert or mastery claims.
 
-============================================================
-5. SUBSYSTEM: LABS, PROJECTS, AND EVIDENCE
-============================================================
+## 5. SUBSYSTEM: LABS, PROJECTS, AND EVIDENCE
 
-IN SCOPE
+### IN SCOPE
 
-Labs are focused technical exercises.
+Work entries share one content model. Labs, projects, studies,
+and artworks use labels suited to the work. A parent entry can
+present the overall story and link to independently authored children.
 
-Projects are larger bodies of work that can include
-multiple labs and development stages.
+Write-ups can use Markdown sections for the objective, motivation,
+method, tests, results, and lessons learned as useful to the entry.
+An entry may combine several images, downloads, links, and explanations.
 
-A lab should document:
-
-- The problem or objective
-- Requirements
-- Work performed
-- Methods and implementation
-- Tests and verification
-- Results
-- Evidence
-- Lessons learned
-
-SUPPORTED EVIDENCE
+### SUPPORTED EVIDENCE
 
 - Images and screenshots
 - Diagrams
@@ -273,11 +234,10 @@ SUPPORTED EVIDENCE
 - Reports
 - External resources
 
-Support nested sections and related labs.
+Support nested sections and independently published child entries.
+Each public work entry has one canonical direct URL under /work.
 
-Each public lab and project must have a direct URL.
-
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Many-to-many relationships.
 - Nested content representation.
@@ -286,17 +246,15 @@ TECHNICAL CHALLENGES
 - Broken links and circular references.
 - Large file storage.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Custom simulation tools for every lab.
 - Complex interactive demonstrations for all projects.
 - Advanced dependency visualization.
 
-============================================================
-6. SUBSYSTEM: ANIMATED SKILL EXPLORER
-============================================================
+## 6. SUBSYSTEM: ANIMATED SKILL EXPLORER
 
-IN SCOPE
+### IN SCOPE
 
 The homepage will include an animated skill explorer.
 
@@ -319,7 +277,7 @@ The lab view can include:
 
 Visitors must be able to return to the previous view.
 
-REQUIREMENTS
+### REQUIREMENTS
 
 - Interactive skill selection.
 - Large expandable panels.
@@ -329,7 +287,7 @@ REQUIREMENTS
 - Reduced-motion support.
 - Acceptable performance on mobile devices.
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Select animation technology.
 - Manage animation state.
@@ -338,38 +296,38 @@ TECHNICAL CHALLENGES
 - Handle keyboard and touch input.
 - Control performance and power use.
 
-OPEN DECISIONS
+### OPEN DECISIONS
 
 - CSS, SVG, Canvas, WebGL, or hybrid.
 - 2D, 2.5D, or 3D presentation.
 - Animation and component libraries.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Full VR application.
 - Immersive 3D world.
 - Complex physics simulation.
 - Mandatory 3D navigation.
 
-============================================================
-7. SUBSYSTEM: CONVENTIONAL WEBSITE
-============================================================
+## 7. SUBSYSTEM: CONVENTIONAL WEBSITE
 
-IN SCOPE
+### IN SCOPE
 
 Suggested routes:
 
+```text
 /                  Homepage and explorer
 /skills            Skill list
 /skills/{slug}     Skill detail
 /labs              Lab list
-/labs/{slug}       Lab detail
+/work              All work
+/work/{slug}       Canonical work detail
 /projects          Project gallery
-/projects/{slug}   Project detail
 /cv                Online CV
 /cv.pdf            Latest approved CV PDF
+```
 
-REQUIREMENTS
+### REQUIREMENTS
 
 - Direct links to public content.
 - Standard navigation.
@@ -379,7 +337,7 @@ REQUIREMENTS
 - Shareable URLs.
 - Selected projects on the homepage.
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Static route generation.
 - Deep linking.
@@ -387,18 +345,16 @@ TECHNICAL CHALLENGES
 - Search engine metadata.
 - Shared components and layouts.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Visitor accounts.
 - Public comments.
 - Social features.
 - Personalized visitor dashboards.
 
-============================================================
-8. SUBSYSTEM: AUTOMATED CV
-============================================================
+## 8. SUBSYSTEM: AUTOMATED CV
 
-IN SCOPE
+### IN SCOPE
 
 Generate an online CV and a downloadable PDF from
 the same approved source data.
@@ -416,7 +372,7 @@ The PDF must be generated during the build process.
 
 Do not generate the PDF separately for every visitor.
 
-REQUIREMENTS
+### REQUIREMENTS
 
 - One source of CV data.
 - Automatic selection of demonstrated skills.
@@ -426,7 +382,7 @@ REQUIREMENTS
 - Consistent online and PDF content.
 - Owner approval of professional claims.
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Select PDF generation technology.
 - Convert structured records into CV sections.
@@ -435,7 +391,7 @@ TECHNICAL CHALLENGES
 - Support clickable portfolio links.
 - Generate reproducible output in CI.
 
-CANDIDATE TECHNOLOGIES
+### CANDIDATE TECHNOLOGIES
 
 - Typst
 - LaTeX
@@ -444,18 +400,16 @@ CANDIDATE TECHNOLOGIES
 
 No PDF technology has been selected.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Visitor-specific PDF generation.
 - Multiple job-specific CV templates.
 - Public archive of every CV version.
 - Online CV editing interface.
 
-============================================================
-9. SUBSYSTEM: VALIDATION AND TESTING
-============================================================
+## 9. SUBSYSTEM: VALIDATION AND TESTING
 
-IN SCOPE
+### IN SCOPE
 
 Automated checks must detect:
 
@@ -474,7 +428,7 @@ Critical errors must stop publication.
 The previous successful production release must remain
 available if a new build fails.
 
-TEST TYPES
+### TEST TYPES
 
 - Unit tests
 - Integration tests
@@ -484,7 +438,7 @@ TEST TYPES
 - Accessibility checks
 - Responsive layout checks
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Select testing tools.
 - Define error severity.
@@ -492,17 +446,15 @@ TECHNICAL CHALLENGES
 - Connect tests to CI.
 - Define measurable acceptance criteria.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Enterprise testing infrastructure.
 - Continuous browser monitoring.
 - Formal certification.
 
-============================================================
-10. SUBSYSTEM: BUILD SYSTEM
-============================================================
+## 10. SUBSYSTEM: BUILD SYSTEM
 
-IN SCOPE
+### IN SCOPE
 
 One repository contains:
 
@@ -527,7 +479,7 @@ The build process must:
 The exact order of independent build and test steps
 can be defined during implementation.
 
-REQUIREMENTS
+### REQUIREMENTS
 
 - Local development and preview.
 - Reproducible builds.
@@ -538,18 +490,16 @@ REQUIREMENTS
 A small change, such as a typo correction, can trigger
 a complete rebuild.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Separate website-builder repository.
 - Always-running application server.
 - Database as a requirement for initial deployment.
 - Reverse conversion of built HTML into source content.
 
-============================================================
-11. SUBSYSTEM: GIT AND DEVELOPMENT TRACKING
-============================================================
+## 11. SUBSYSTEM: GIT AND DEVELOPMENT TRACKING
 
-AGREED DECISIONS
+### AGREED DECISIONS
 
 - Use Git for source version control.
 - Host the repository on GitHub.
@@ -558,13 +508,13 @@ AGREED DECISIONS
 - Keep the repository private initially.
 - Make the repository public when appropriate.
 
-INITIAL REPOSITORY
+### INITIAL REPOSITORY
 
 portfolio-website/
 |
 |-- README.md
 |-- docs/
-|   |-- project-scope.txt
+|   |-- project-scope.md
 |-- .gitignore
 
 This is the initial structure, not the final architecture.
@@ -575,7 +525,7 @@ The project-scope document defines technical requirements.
 
 Source directories will be added after stack selection.
 
-DEVELOPMENT TRACKING
+### DEVELOPMENT TRACKING
 
 Use GitHub Projects as the main development board.
 
@@ -608,7 +558,7 @@ and verification procedures.
 AI may assist with task updates when suitable access
 and permissions are available.
 
-TASK AND COMMIT LINKS
+### TASK AND COMMIT LINKS
 
 Reference relevant GitHub Issues in commit messages.
 
@@ -623,7 +573,7 @@ For planning tasks, direct commits to main are acceptable.
 For implementation, feature branches and pull requests
 are preferred.
 
-PRIVACY
+### PRIVACY
 
 The repository is initially private.
 
@@ -635,18 +585,16 @@ of issues, comments, and development records.
 
 The task board can remain private.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Custom task-management application.
 - Self-hosted issue tracker.
 - Separate planning database.
 - Complex team-management workflows.
 
-============================================================
-12. SUBSYSTEM: CI/CD AND RELEASE MANAGEMENT
-============================================================
+## 12. SUBSYSTEM: CI/CD AND RELEASE MANAGEMENT
 
-IN SCOPE
+### IN SCOPE
 
 - Automatic builds.
 - Automated validation.
@@ -656,7 +604,7 @@ IN SCOPE
 - Rollback to a working release.
 - Separate preview and production URLs.
 
-SUGGESTED WORKFLOW
+### SUGGESTED WORKFLOW
 
 1. Create or select a development task.
 2. Define acceptance criteria.
@@ -673,7 +621,7 @@ SUGGESTED WORKFLOW
 
 The final workflow can be simplified for small changes.
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Select CI/CD tools.
 - Configure preview deployments.
@@ -682,7 +630,7 @@ TECHNICAL CHALLENGES
 - Configure rollback.
 - Prevent failed builds from replacing production.
 
-CANDIDATE TOOLS
+### CANDIDATE TOOLS
 
 - GitHub Actions
 - Hosting-provider build pipelines
@@ -690,11 +638,9 @@ CANDIDATE TOOLS
 
 No final CI/CD implementation has been selected.
 
-============================================================
-13. SUBSYSTEM: HOSTING AND DOMAIN
-============================================================
+## 13. SUBSYSTEM: HOSTING AND DOMAIN
 
-IN SCOPE
+### IN SCOPE
 
 - Free or inexpensive static hosting.
 - HTTPS.
@@ -704,7 +650,7 @@ IN SCOPE
 - Optional custom domain.
 - Hosting of generated PDF and media.
 
-CANDIDATE HOSTS
+### CANDIDATE HOSTS
 
 - GitHub Pages
 - Cloudflare Pages
@@ -717,7 +663,7 @@ Start with a free provider address.
 
 A custom domain can be purchased later.
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Free-plan restrictions.
 - Build and bandwidth limits.
@@ -726,18 +672,16 @@ TECHNICAL CHALLENGES
 - Custom domain configuration.
 - Deployment caching.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Paid application server.
 - Managed production database.
 - Visitor authentication infrastructure.
 - Dedicated hosting hardware.
 
-============================================================
-14. SUBSYSTEM: ACCESSIBILITY AND SECURITY
-============================================================
+## 14. SUBSYSTEM: ACCESSIBILITY AND SECURITY
 
-IN SCOPE
+### IN SCOPE
 
 - Responsive layouts.
 - Keyboard navigation.
@@ -753,7 +697,7 @@ IN SCOPE
 The animated explorer must not be the only way to
 access important content.
 
-TECHNICAL CHALLENGES
+### TECHNICAL CHALLENGES
 
 - Define performance targets.
 - Test accessibility.
@@ -761,15 +705,13 @@ TECHNICAL CHALLENGES
 - Manage large media.
 - Prevent private content from entering public builds.
 
-OUT OF INITIAL SCOPE
+### OUT OF INITIAL SCOPE
 
 - Complex authentication.
 - User-generated public content.
 - Enterprise security infrastructure.
 
-============================================================
-15. FUTURE FEATURES - NOT INITIAL SCOPE
-============================================================
+## 15. FUTURE FEATURES - NOT INITIAL SCOPE
 
 The following features are possible future additions:
 
@@ -792,9 +734,7 @@ The following features are possible future additions:
 Do not select a more complex technology stack only
 to support these optional features.
 
-============================================================
-16. NON-NEGOTIABLE REQUIREMENTS
-============================================================
+## 16. NON-NEGOTIABLE REQUIREMENTS
 
 R-01  One shared source for website and CV content.
 
@@ -838,84 +778,81 @@ R-20  GitHub-based development tracking.
 
 R-21  Tasks have acceptance criteria and verification states.
 
-============================================================
-17. ACCEPTANCE AND VERIFICATION SCENARIOS
-============================================================
+## 17. ACCEPTANCE AND VERIFICATION SCENARIOS
 
-T-01
+### T-01
 Create a published lab and confirm that its direct URL works.
 
-T-02
+### T-02
 Link one lab to two skills and confirm both use the
 same canonical record.
 
-T-03
+### T-03
 Open a skill directly through its URL.
 
-T-04
+### T-04
 Select an animated skill and confirm that the
 appropriate information panel opens.
 
-T-05
+### T-05
 Open a lab and inspect its steps, evidence, and results.
 
-T-06
+### T-06
 Mark a skill Learning and confirm that it is excluded
 from demonstrated CV skills.
 
-T-07
+### T-07
 Mark a skill Demonstrated without valid evidence.
 Confirm that validation fails.
 
-T-08
-Add valid evidence and owner approval.
-Confirm that the online CV and PDF include the skill.
+### T-08
+Approve a completed, published work entry's link to one skill.
+Confirm that only that link qualifies and its demonstrated skill
+appears in the online CV. Verify PDF inclusion in the Typst release.
 
-T-09
+### T-09
 Create a draft lab and confirm that it is not published.
 
-T-10
+### T-10
 Introduce duplicate IDs and broken references.
 Confirm that validation reports the errors.
 
-T-11
+### T-11
 Edit a Markdown file and confirm the local preview updates.
 
-T-12
+### T-12
 Push a change and inspect the preview deployment.
 
-T-13
+### T-13
 Approve a change and confirm production deployment.
 
-T-14
+### T-14
 Cause a build failure and confirm that the previous
 production release remains available.
 
-T-15
+### T-15
 Test keyboard navigation, reduced motion, and mobile layout.
 
-T-16
+### T-16
 Download the generated CV PDF and compare it with
 the published source records.
 
-T-17
+### T-17
 Confirm that no credentials or private drafts enter
 the production build.
 
-T-18
+### T-18
 Create a GitHub task with acceptance criteria.
 
-T-19
+### T-19
 Link a commit or pull request to the task.
 
-T-20
+### T-20
 Verify the implementation before marking the task Done.
 
-============================================================
-18. SUGGESTED IMPLEMENTATION ORDER
-============================================================
+## 18. SUGGESTED IMPLEMENTATION ORDER
 
-STAGE 0 - PROJECT INITIALIZATION
+### STAGE 0 - PROJECT INITIALIZATION
 
 - Create local Git repository.
 - Create GitHub repository.
@@ -923,7 +860,7 @@ STAGE 0 - PROJECT INITIALIZATION
 - Configure GitHub Projects.
 - Create initial planning tasks.
 
-STAGE 1 - TECHNOLOGY SELECTION
+### STAGE 1 - TECHNOLOGY SELECTION
 
 - Compare complete technology stacks.
 - Select frontend architecture.
@@ -932,7 +869,7 @@ STAGE 1 - TECHNOLOGY SELECTION
 - Select hosting and CI/CD tools.
 - Define development responsibilities.
 
-STAGE 2 - PROJECT FOUNDATION
+### STAGE 2 - PROJECT FOUNDATION
 
 - Set up the development environment.
 - Create initial application structure.
@@ -940,7 +877,7 @@ STAGE 2 - PROJECT FOUNDATION
 - Configure testing and build commands.
 - Configure preview deployments.
 
-STAGE 3 - CONTENT SYSTEM
+### STAGE 3 - CONTENT SYSTEM
 
 - Define record schemas.
 - Implement content loading.
@@ -948,7 +885,7 @@ STAGE 3 - CONTENT SYSTEM
 - Implement validation.
 - Add sample records and tests.
 
-STAGE 4 - CONVENTIONAL WEBSITE
+### STAGE 4 - CONVENTIONAL WEBSITE
 
 - Build navigation.
 - Build skill pages.
@@ -956,14 +893,14 @@ STAGE 4 - CONVENTIONAL WEBSITE
 - Build project pages.
 - Implement direct routes.
 
-STAGE 5 - AUTOMATED CV
+### STAGE 5 - AUTOMATED CV
 
 - Build online CV.
 - Implement skill selection rules.
 - Create PDF template.
 - Integrate PDF generation into builds.
 
-STAGE 6 - INTERACTIVE EXPLORER
+### STAGE 6 - INTERACTIVE EXPLORER
 
 - Create animated skill objects.
 - Implement selection and focus.
@@ -971,7 +908,7 @@ STAGE 6 - INTERACTIVE EXPLORER
 - Connect panels to content records.
 - Support mobile and reduced motion.
 
-STAGE 7 - QUALITY AND PUBLICATION
+### STAGE 7 - QUALITY AND PUBLICATION
 
 - Improve evidence viewers.
 - Run accessibility checks.
@@ -985,47 +922,45 @@ This order is a proposal.
 A small animation prototype can be created earlier
 to test the chosen graphics technology.
 
-============================================================
-19. OPEN TECHNOLOGY DECISIONS
-============================================================
+## 19. OPEN TECHNOLOGY DECISIONS
 
-D-01
+### D-01
 Frontend framework and static site generation.
 
-D-02
+### D-02
 Animation technology and rendering approach.
 
-D-03
+### D-03
 Markdown format and metadata representation.
 
-D-04
+### D-04
 Content schemas and validation library.
 
-D-05
+### D-05
 PDF generation engine.
 
-D-06
+### D-06
 Hosting provider.
 
-D-07
+### D-07
 CI/CD architecture.
 
-D-08
+### D-08
 UI component and animation libraries.
 
-D-09
+### D-09
 CV layout and pagination.
 
-D-10
+### D-10
 Media and evidence storage.
 
-D-11
+### D-11
 Testing frameworks and quality thresholds.
 
-D-12
+### D-12
 Division of implementation work between owner and AI.
 
-D-13
+### D-13
 Minimum viable product and release priorities.
 
 Evaluate each stack using:
@@ -1045,9 +980,7 @@ Evaluate each stack using:
 - Time to first working release.
 - Long-term extensibility.
 
-============================================================
-20. INSTRUCTIONS FOR THE NEXT AI CHAT
-============================================================
+## 20. INSTRUCTIONS FOR THE NEXT AI CHAT
 
 Use this document as the technical project baseline.
 
@@ -1060,7 +993,7 @@ tracking system.
 
 The technology stack has not yet been selected.
 
-FIRST:
+### FIRST:
 
 1. Review the project requirements.
 2. Identify architecture-critical decisions.
@@ -1072,7 +1005,7 @@ FIRST:
 
 Do not immediately generate the entire application.
 
-AFTER STACK SELECTION:
+### AFTER STACK SELECTION:
 
 1. Define subsystem boundaries.
 2. Define data flow and interfaces.
@@ -1095,7 +1028,3 @@ Preserve agreed requirements.
 
 If a proposed architecture requires changing scope,
 explain the change and request approval first.
-
-============================================================
-END OF DOCUMENT
-============================================================

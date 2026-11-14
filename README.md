@@ -15,12 +15,12 @@ Both interfaces will use the same content.
 
 ## Planned Features
 
-### Skills and Labs
+### Skills and Work
 - Track skills as Interested, Learning, or Demonstrated.
 - Document practical exercises and technical projects.
-- Link skills to completed labs and supporting evidence.
+- Link skills to labs, studies, projects, and artwork. Approve proof for each skill separately.
 - Display code, screenshots, diagrams, and test results.
-- Support related and nested lab content.
+- Present larger pieces alongside independently authored child entries.
 
 ### Interactive Website
 - Animated skill explorer with interactive panels.
@@ -29,10 +29,10 @@ Both interfaces will use the same content.
 - Responsive design and accessible navigation.
 
 ### Automated CV
-- Generate an online CV and downloadable PDF.
-- Include demonstrated skills with verified, completed labs.
+- Generate an online CV for the first release.
+- Include demonstrated skills backed by approved, completed work.
 - Use the same source data as the portfolio.
-- Automatically generate the PDF during the build process.
+- Add a downloadable CV generated with Typst in a later release.
 
 ### Development and Deployment
 - Maintain content using Markdown files in VS Code or Obsidian.
@@ -49,17 +49,13 @@ The initial repository will contain the project documentation. The source code a
 portfolio-website/
 ├── README.md
 ├── docs/
-│   └── project-scope.txt
+│   └── project-scope.md
 └── .gitignore
 ```
 
 ## Technology Stack
 
-**Not yet selected.**
-
-The project will be designed around the requirements before selecting frameworks, libraries, build tools, and hosting services.
-
-The initial goal is to use free or open-source tools where practical.
+The site uses Astro, TypeScript, and Markdown with YAML frontmatter. The [architecture plan](docs/architecture.md) explains the content model, validation, testing, deployment, and implementation sequence.
 
 ## Development Approach
 
@@ -71,8 +67,8 @@ Development tasks and progress will be tracked using GitHub Projects.
 
 ## Current Status
 
-**Planning — Technology Selection**
+**Planning — Architecture and Implementation**
 
-The project scope and initial requirements have been defined. Technology selection and implementation are the next steps.
+The initial stack and architecture are documented. The first implementation step is scaffolding Astro and verifying a local build.
 
-See [Project Scope](docs/project-scope.txt) for the full requirements, subsystem descriptions, constraints, and planned functionality.
+See [Project Scope](docs/project-scope.md) for the full requirements, subsystem descriptions, constraints, and planned functionality.
