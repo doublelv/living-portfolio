@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const skills = await getCollection("skills");
+
+  return skills.map((skill) => ({
+    params: { slug: skill.data.slug },
+    props: { skill },
+  }));
+}
+
+const { skill } = Astro.props;
+const { Content } = await render(skill);
+const relatedWork = await getCollection("work", (entry) =>
+  entry.data.skills.some((link: { skill: string }) => link.skill === skill.data.id),
+);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{skill.data.title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{skill.data.title}</h1>
+      <p>{skill.data.summary}</p>
+      <p>Status: {skill.data.status}</p>
+      <Content />
+
+      {relatedWork.length > 0 && (
+        <section>
+          <h2>Related work</h2>
+          <ul>
+            {relatedWork.map((entry) => (
+              <li><a href={`/work/${entry.data.slug}`}>{entry.data.title}</a></li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </main>
+  </body>
+</html>
