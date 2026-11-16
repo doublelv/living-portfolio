@@ -65,10 +65,29 @@ AI tools may assist with planning, research, code generation, debugging, and rev
 
 Development tasks and progress will be tracked using GitHub Projects.
 
+## Local development
+
+Requires Node.js 26.13.1 or newer.
+
+From the repository root, enter the Astro project directory and install dependencies:
+
+```powershell
+cd astro
+npm ci
+```
+
+Run these commands from `astro/`:
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server and see changes as you save. |
+| `npm run build` | Generate the production build. |
+| `npm run preview` | Preview the production build locally after building. |
+
+Open the local URL printed by the dev or preview command.
+
 ## Current Status
 
-**Planning — Architecture and Implementation**
+The Astro project is set up in `astro/`, and the homepage has its first heading. The current milestone is to add a short introduction and verify the homepage in the local production preview.
 
-The initial stack and architecture are documented. The first implementation step is scaffolding Astro and verifying a local build.
-
-See [Project Scope](docs/project-scope.md) for the full requirements, subsystem descriptions, constraints, and planned functionality.
+See the [Project Scope](docs/project-scope.md) for the full requirements and planned features.
